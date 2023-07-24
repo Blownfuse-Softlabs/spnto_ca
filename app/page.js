@@ -52,7 +52,7 @@ export default function Home() {
             View in your space
           </button>
 
-          Pode Mulo Dakha
+          <div className="flex justify-center items-end">This is a normal text</div>
         </model-viewer>
       </div>
 
