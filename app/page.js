@@ -48,11 +48,13 @@ export default function Home() {
           ar-scale="fixed"
           ar-modes="webxr scene-viewer quick-look"
         >
+          <div className="flex justify-center items-end">
           <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-2 text-spoon-beige text-xs">
             View in your space
           </button>
 
           <div className="flex justify-center items-end">This is a normal text</div>
+          </div>
         </model-viewer>
       </div>
 
