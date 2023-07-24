@@ -37,7 +37,7 @@ export default function Home() {
       <div id="card" className="p-6">
         <model-viewer
           src="https://dishmodels.s3.amazonaws.com/dumpukht_peshawar_food.glb"
-          ios-src=""
+          ios-src="https://dishmodels.s3.amazonaws.com/Dumpukht_Peshawar_food.usdz"
           poster="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b%2Fposter-astronaut.png?v=1599079951717"
           alt="A 3D model of an astronaut"
           shadow-intensity="1"
@@ -48,7 +48,7 @@ export default function Home() {
           ar-scale="fixed"
           ar-modes="webxr"
         >
-          <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-6">
+          <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-2 text-spoon-beige text-xs">
             View in your space
           </button>
         </model-viewer>
