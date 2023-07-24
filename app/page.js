@@ -51,6 +51,8 @@ export default function Home() {
           <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-2 text-spoon-beige text-xs">
             View in your space
           </button>
+
+          Pode Mulo Dakha
         </model-viewer>
       </div>
 
