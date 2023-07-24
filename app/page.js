@@ -48,7 +48,7 @@ export default function Home() {
           ar-scale="fixed"
           ar-modes="webxr"
         >
-          <button slot="ar-button" id="ar-button">
+          <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-6">
             View in your space
           </button>
         </model-viewer>
