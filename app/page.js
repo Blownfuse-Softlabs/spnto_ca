@@ -1,13 +1,25 @@
 "use client"
 
+import "@google/model-viewer";
+
 import NavSWR from "@/components/NavSWR"
 import DishCardSWR from "@/components/DishCardSWR"
+
+//TESTING
+const menuList = [
+  "Soups",
+  "Appetizers",
+  "Main Course",
+  "Desserts",
+  "Aro ache",
+  "Tar poreo ache"  
+] 
 
 export default function Home() {
   return (
     <>
     <main className="bg-spoon-grey portrait:hidden flex min-h-screen flex-col items-center justify-center p-8 pt-12 gap-10">
-      <div className>
+      <div>
         <h1 className="text-spoon-red font-medium text-3xl">
           Oops!
         </h1>
@@ -21,12 +33,41 @@ export default function Home() {
 
     <main className="landscape:hidden">
       <NavSWR />
-      <div className="flex flex-col p-8 bg-spoon-grey gap-4 h-full">        
+
+      <div id="card" className="p-6">
+        <model-viewer
+          src="https://dishmodels.s3.amazonaws.com/dumpukht_peshawar_food.glb"
+          ios-src=""
+          poster="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b%2Fposter-astronaut.png?v=1599079951717"
+          alt="A 3D model of an astronaut"
+          shadow-intensity="1"
+          camera-controls
+          touch-action="pan-y"
+          //auto-rotate
+          ar
+          ar-scale="fixed"
+          ar-modes="webxr"
+        >
+          <button slot="ar-button" id="ar-button">
+            View in your space
+          </button>
+        </model-viewer>
+      </div>
+
+      <div className="flex flex-col p-4 bg-spoon-grey gap-2">        
         <DishCardSWR dishIndex={0}/>
         <DishCardSWR dishIndex={1}/>
         <DishCardSWR dishIndex={2}/>
         <DishCardSWR dishIndex={3}/>
-        <DishCardSWR dishIndex={4}/>                
+        <DishCardSWR dishIndex={4}/>
+        <DishCardSWR dishIndex={5}/>
+        <DishCardSWR dishIndex={5}/>
+        <DishCardSWR dishIndex={5}/>
+        <DishCardSWR dishIndex={5}/>
+        <DishCardSWR dishIndex={5}/>
+        <DishCardSWR dishIndex={5}/>
+        <DishCardSWR dishIndex={5}/>
+        <DishCardSWR dishIndex={5}/>
       </div>      
     </main>    
     </>

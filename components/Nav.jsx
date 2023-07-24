@@ -10,7 +10,7 @@ const Nav = ({ brandName, categoryList }) => {
       </div>
       {/*Filter Dropdown Section*/}
       <div className="flex justify-center items-center">
-        <button className="bg-spoon-red text-spoon-beige font-light text-sm w-full py-2 rounded-full shadow-xl text-center">
+        <button className="bg-spoon-red text-spoon-beige font-light text-sm w-full py-2 rounded-none shadow-xl text-center">
           Choose what's shown
         </button>
       </div>

@@ -1,5 +1,8 @@
 import useRestaurant from "@/hooks/useRestaurant";
 import Image from "next/image";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { ChevronUpIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 
 function getDishSpiceURL(spiceID) {
   return spiceID > 0 && spiceID < 4
@@ -13,8 +16,18 @@ function getDishClassURL(classID) {
     : "/icons/Icon_Class_Veg.svg";
 }
 
+function getFormattedPrice(currency, price) {
+  return price.toLocaleString("en-US", {
+    style: "currency",
+    currency: currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+}
+
 const DishCardSWR = ({ dishIndex }) => {
   const { restaurant, isLoading } = useRestaurant(1);
+  let [isCollapsed, setCollapsed] = useState(true);
 
   let dishSpiceURL = "";
   let dishClassURL = "";
@@ -35,36 +48,53 @@ const DishCardSWR = ({ dishIndex }) => {
   );
 
   return (
-    <div className="flex bg-white p-0 rounded-2xl shadow-xl container gap-2">
-      {/*Dish Name & Price section*/}
-      <div className="flex flex-col gap-1 w-full ml-4 my-3">
-        <h1 className="text-spoon-blue font-semibold text-md">
-          {restaurant.menu[dishIndex].name}
-        </h1>
-        <h2 className="text-spoon-red font-medium text-sm">
-          {restaurant.menu[dishIndex].price}
-        </h2>
-      </div>
+    <div className="flex bg-white p-0 rounded-2xl shadow-xl container overflow-hidden">
+      <div
+        className="flex w-full items-center"
+        onClick={() => {
+          setCollapsed(!isCollapsed);
+        }}
+      >
+        {/*Chevron*/}
+        <div className="flex flex-shrink-0 ml-4">
+          {isCollapsed ? (
+            <ChevronDownIcon className="text-spoon-blue h-5 w-5" />
+          ) : (
+            <ChevronUpIcon className="text-spoon-blue h-5 w-5" />
+          )}
+        </div>
 
-      {/*Dish Spice & Classification section*/}
-      {
-        <div className="flex flex-col justify-between items-end mr-2 my-3">
+        {/*Dish Name & Price section*/}
+        <div className="flex flex-col items-start gap-1 w-full ml-4 my-3 text-left">
+          <h1 className="text-spoon-blue font-semibold text-sm">
+            {restaurant.menu[dishIndex].name}
+          </h1>
+          <h2 className="text-spoon-red font-medium text-xs">
+            {getFormattedPrice(
+              restaurant.menu[dishIndex].currency.toUpperCase(),
+              restaurant.menu[dishIndex].price
+            )}
+          </h2>
+        </div>
+
+        {/*Dish Spice & Classification section*/}
+        <div className="flex flex-col flex-shrink-0 justify-between items-end mx-2 py-3 h-full">
           <Image
             src={dishSpiceURL}
-            width={18}
-            height={18}
+            width={16}
+            height={16}
             alt="Spice level indicator"
           />
           <Image
             src={dishClassURL}
-            width={20}
-            height={20}
+            width={16}
+            height={16}
             alt="Spice classification indicator"
           />
         </div>
-      }
+      </div>
 
-      <button className="bg-spoon-blue rounded-e-2xl px-6">
+      <button className="bg-spoon-blue px-6">
         <Image
           src="/icons/Icon_View_AR.svg"
           width={26}
