@@ -4,6 +4,7 @@ import "@google/model-viewer";
 
 import NavSWR from "@/components/NavSWR"
 import DishCardSWR from "@/components/DishCardSWR"
+import DishCard from "@/components/DishCard/DishCard";
 
 //TESTING
 const menuList = [
@@ -35,7 +36,8 @@ export default function Home() {
       <NavSWR />
 
       <div id="card" className="p-6">
-        <model-viewer
+        
+        {<model-viewer
           src="https://dishmodels.s3.amazonaws.com/dumpukht_peshawar_food.glb"
           ios-src="https://dishmodels.s3.amazonaws.com/Dumpukht_Peshawar_food.usdz"
           poster="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b%2Fposter-astronaut.png?v=1599079951717"
@@ -43,22 +45,21 @@ export default function Home() {
           shadow-intensity="1"
           camera-controls
           touch-action="pan-y"
-          //auto-rotate
+          auto-rotate
           ar
           ar-scale="fixed"
-          ar-modes="webxr scene-viewer quick-look"
+          //ar-modes="webxr scene-viewer quick-look"
+          ar-modes="webxr"
         >
-          <div className="flex justify-center items-end">
-          <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-2 text-spoon-beige text-xs">
+          <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-2 text-spoon-beige text-xs" onClick={console.log("WebXR button clicked")}>
             View in your space
-          </button>
-
-          <div className="flex justify-center items-end">This is a normal text</div>
-          </div>
-        </model-viewer>
-      </div>
+            Test 2            
+          </button>          
+        </model-viewer>}.activateAR();
+      </div>      
 
       <div className="flex flex-col p-4 bg-spoon-grey gap-2">        
+        <DishCard />
         <DishCardSWR dishIndex={0}/>
         <DishCardSWR dishIndex={1}/>
         <DishCardSWR dishIndex={2}/>
