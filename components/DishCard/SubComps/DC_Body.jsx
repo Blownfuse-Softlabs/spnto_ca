@@ -37,7 +37,7 @@ const DC_Body = ({ isCollapsed }) => {
               className="bg-spoon-blue p-2 text-spoon-beige text-xs"
               onClick={console.log("WebXR button clicked")}
             >
-              View in your space Test 2
+              View in your space Test 3
             </button>
           </model-viewer>
         }
