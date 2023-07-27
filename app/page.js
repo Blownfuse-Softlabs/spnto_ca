@@ -35,7 +35,7 @@ export default function Home() {
     <main className="landscape:hidden">
       <NavSWR />
 
-      <div id="card" className="p-6">
+      {/* <div id="card" className="p-6">
         
         {<model-viewer
           src="https://dishmodels.s3.amazonaws.com/dumpukht_peshawar_food.glb"
@@ -56,7 +56,7 @@ export default function Home() {
             Test 2            
           </button>          
         </model-viewer>}.activateAR();
-      </div>      
+      </div> */}      
 
       <div className="flex flex-col p-4 bg-spoon-grey gap-2">        
         <DishCard />
