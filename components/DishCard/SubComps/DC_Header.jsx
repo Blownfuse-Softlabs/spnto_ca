@@ -6,11 +6,12 @@ import {
 
 import Image from "next/image";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { ChevronUpIcon } from "@heroicons/react/20/solid";
 import { AnimatePresence, MotionConfig, animate, motion } from "framer-motion";
 
 const DC_Header = ({
   isCollapsed,
+  onCollapse,
+  showSideBtn = false,
   dishName,
   dishCurrency,
   dishPrice,
@@ -25,14 +26,14 @@ const DC_Header = ({
 
   return (
     /*Header Container*/
-    <MotionConfig transition={{ ease: "anticipate", duration: 0.2 }}>
-      <div className="flex">
+    <MotionConfig transition={{ duration: 0.2 }}>
+      <div className="flex" onClick={onCollapse}>
         {/*Dish Header Info*/}
         <AnimatePresence mode="popLayout">
           <motion.div
             key="dishHeaderInfo"
             layout
-            className="flex w-full items-center gap-3 ml-3 mr-2 py-3"
+            className="flex w-full items-center gap-3 ml-3 mr-3 py-3"
           >
             {/*Chevron*/}
             <motion.div
@@ -42,13 +43,6 @@ const DC_Header = ({
             >
               <ChevronDownIcon className="text-spoon-blue h-5 w-5" />
             </motion.div>
-            {/* <motion.div layout className="flex flex-shrink-0">
-              {isCollapsed ? (
-                <ChevronDownIcon className="text-spoon-blue h-5 w-5" />
-              ) : (
-                <ChevronUpIcon className="text-spoon-blue h-5 w-5" />
-              )}
-            </motion.div> */}
 
             {/*Dish Name & Price section*/}
             <motion.div
@@ -85,20 +79,15 @@ const DC_Header = ({
               />
             </motion.div>
           </motion.div>
-          {/* </AnimatePresence> */}
 
           {/*View Button*/}
-          {/* <AnimatePresence mode="sync"> */}
-          {isCollapsed === true && (
+          {showSideBtn && isCollapsed === true && (
             <motion.button
               key="dishHeaderViewBtn"
               variants={variantsBtnView}
               initial="hidden"
               animate="visible"
               exit="exit"
-              //initial={{ opacity: 0 }}
-              //animate={{ opacity: 1 }}
-              //exit={{ opacity: 0 }}
               className="bg-spoon-blue px-6 rounded-e-2xl"
             >
               <Image
@@ -110,20 +99,6 @@ const DC_Header = ({
             </motion.button>
           )}
         </AnimatePresence>
-
-        {/* <motion.button
-          variants={variantsBtnView}
-          initial="initial"
-          animate={isCollapsed ? "visible" : "hidden"}
-          className={`${isCollapsed ? "block" : "hidden"} bg-spoon-blue px-6`}
-        >
-          <Image
-            src="/icons/Icon_View_AR.svg"
-            width={26}
-            height={26}
-            alt="View in AR"
-          />
-        </motion.button> */}
       </div>
     </MotionConfig>
   );

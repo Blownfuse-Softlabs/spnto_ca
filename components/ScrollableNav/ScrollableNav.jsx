@@ -1,12 +1,38 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const ScrollableMenu = ({ menuItems, id, activeCourseCallback }) => {
+const ScrollableNav = ({ menuItems, id, activeCourseCallback }) => {
   const [activeCourse, setActiveCourse] = useState(menuItems[0]);
+  const menuRef = useRef(null);
+  const activeLinkRef = useRef(null);
 
-  const handleCourseChange = (course) => {
+  useEffect(() => {
+    if (activeLinkRef.current) {
+      activeLinkRef.current.scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
+    }
+  }, [activeCourse]);
+
+  const handleLinkClick = (course, event) => {
+    event.preventDefault(); // Prevent default link click behavior
     setActiveCourse(course);
-    activeCourseCallback(course);
+    if (activeCourseCallback) {
+      activeCourseCallback(course);
+    }
+    // Handle scrolling inside the navigation container
+    if (menuRef.current && activeLinkRef.current) {
+      const scrollLeft =
+        activeLinkRef.current.offsetLeft -
+        menuRef.current.offsetLeft +
+        activeLinkRef.current.offsetWidth / 2 -
+        menuRef.current.offsetWidth / 2;
+      menuRef.current.scroll({
+        left: scrollLeft,
+        behavior: "smooth",
+      });
+    }
   };
 
   return (
@@ -15,21 +41,25 @@ const ScrollableMenu = ({ menuItems, id, activeCourseCallback }) => {
         <div className="z-20 h-full w-3 bg-gradient-to-r from-inherit to-transparent" />
         <div className="z-20 h-full w-3 bg-gradient-to-l from-inherit to-transparent" />
       </div>
-      <div className="flex whitespace-nowrap gap-6 px-4 overflow-x-auto scrollbar-hide scroll-smooth">
+      <div
+        className="flex whitespace-nowrap gap-6 px-4 overflow-x-auto scrollbar-hide scroll-smooth"
+        ref={menuRef}
+      >
         {menuItems.map((course, index) => (
-          <motion.button
+          <motion.a
             key={course}
-            onClick={() => handleCourseChange(course)}
+            href="#"
+            onClick={(event) => handleLinkClick(course, event)}
             className={`${
               activeCourse === course
                 ? "text-spoon-red font-medium"
                 : "text-spoon-blue font-normal"
             } relative rounded-full pt-1.5 pb-2 text-sm`}
             id={id + "_course_" + index}
+            ref={activeCourse === course ? activeLinkRef : null}
           >
             {activeCourse === course && (
               <motion.div
-                layout
                 layoutId={id}
                 transition={{
                   type: "spring",
@@ -39,17 +69,15 @@ const ScrollableMenu = ({ menuItems, id, activeCourseCallback }) => {
                 className="absolute h-0.5 w-full bottom-0 bg-spoon-red"
                 style={{
                   borderRadius: 9999,
-                  position: "absolute",
-                  bottom: 0,
                 }}
               />
             )}
             <span className="relative z-10">{course}</span>
-          </motion.button>
+          </motion.a>
         ))}
       </div>
     </div>
   );
 };
 
-export default ScrollableMenu;
+export default ScrollableNav;

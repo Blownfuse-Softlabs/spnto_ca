@@ -2,6 +2,8 @@ import useRestaurant from "@/hooks/useRestaurant";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import ScrollableMenu from "@/components/ScrollableMenu/ScrollableMenu";
+import ScrollableNav from "./ScrollableNav/ScrollableNav";
+import FilterDropdown from "./FilterDropdown/FilterDropdown";
 
 function getMenuCourses(menuArray) {
   const uniqueCourses = [...new Set(menuArray.map((item) => item.course))];
@@ -49,10 +51,14 @@ const NavSWR = () => {
 
       {/*Filter Dropdown Section*/}
       <div className="flex justify-center items-center">
+        <FilterDropdown showBorder={false} />
+      </div>
+
+      {/*<div className="flex justify-center items-center">
         <button className="bg-spoon-red text-spoon-beige font-light text-sm w-full py-2 rounded-full shadow-xl text-center z-10">
           Choose what's shown
         </button>
-      </div>
+  </div>*/}
 
       {/*Menu Courses*/}
       <div className="bg-gradient-to-r from-spoon-grey from-40% to-spoon-grey w-full">
@@ -62,6 +68,12 @@ const NavSWR = () => {
           activeCourseCallback={childToParent}
         />
       </div>
+
+      <ScrollableNav
+        menuItems={["Soup", "Starter", "Main Course", "Dessert", "Beverages"]}
+        id={"course-nav"}
+        activeCourseCallback={childToParent}
+      />
     </div>
   );
 };

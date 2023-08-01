@@ -6,6 +6,9 @@ import NavSWR from "@/components/NavSWR"
 import DishCardSWR from "@/components/DishCardSWR"
 import DishCard from "@/components/DishCard/DishCard";
 
+import useRestaurant from "@/hooks/useRestaurant";
+import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
+
 //TESTING
 const menuList = [
   "Soups",
@@ -17,6 +20,28 @@ const menuList = [
 ] 
 
 export default function Home() {
+  const {restaurant, isLoading, isError} = useRestaurant(1);
+  
+  if (isLoading) {
+    return (
+      <div className="flex bg-spoon-grey p-8 w-screen h-screen justify-center items-center">
+        <h2 className="text-spoon-blue font-normal text-lg">
+          Loading Menu Info
+        </h2>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="flex bg-spoon-grey p-8 w-screen h-screen justify-center items-center">
+        <h2 className="text-spoon-blue font-normal text-lg">
+          There was an error
+        </h2>
+      </div>
+    );
+  }
+
   return (
     <>
     <main className="bg-spoon-grey portrait:hidden flex min-h-screen flex-col items-center justify-center p-8 pt-12 gap-10">
@@ -32,31 +57,8 @@ export default function Home() {
       </div>      
     </main>
 
-    <main className="landscape:hidden">
-      <NavSWR />
-
-      {/* <div id="card" className="p-6">
-        
-        {<model-viewer
-          src="https://dishmodels.s3.amazonaws.com/dumpukht_peshawar_food.glb"
-          ios-src="https://dishmodels.s3.amazonaws.com/Dumpukht_Peshawar_food.usdz"
-          poster="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b%2Fposter-astronaut.png?v=1599079951717"
-          alt="A 3D model of an astronaut"
-          shadow-intensity="1"
-          camera-controls
-          touch-action="pan-y"
-          auto-rotate
-          ar
-          ar-scale="fixed"
-          //ar-modes="webxr scene-viewer quick-look"
-          ar-modes="webxr"
-        >
-          <button slot="ar-button" id="ar-button" className="bg-spoon-blue p-2 text-spoon-beige text-xs" onClick={console.log("WebXR button clicked")}>
-            View in your space
-            Test 2            
-          </button>          
-        </model-viewer>}.activateAR();
-      </div> */}      
+    {/*<main className="landscape:hidden">
+      <NavSWR />            
 
       <div className="flex flex-col p-4 bg-spoon-grey gap-2">        
         <DishCard />
@@ -74,6 +76,11 @@ export default function Home() {
         <DishCardSWR dishIndex={5}/>
         <DishCardSWR dishIndex={5}/>
       </div>      
+    </main>*/}
+
+    <main className="landscape:hidden flex flex-col items-center px-2 bg-spoon-grey w-screen h-screen overflow-scroll">
+      {/*<DishCard dishInfo={restaurant.menu[0]}/>*/}
+      <RestaurantMenu menuItems={restaurant.menu} course={restaurant.brand[0].courses[0]} />
     </main>    
     </>
   )
