@@ -5,7 +5,7 @@ const RestaurantMenu = ({ menuItems, course }) => {
   const courseFilteredMenu = fullMenu.filter((dish) => dish.course === course);
 
   return (
-    <div className="flex flex-col items-center w-full px-4 pb-10 gap-2">
+    <div className="flex flex-col items-center w-full px-4 pt-2 pb-10 gap-2">
       {courseFilteredMenu.map((dish, index) => (
         <DishCard key={index} dishInfo={dish} />
       ))}

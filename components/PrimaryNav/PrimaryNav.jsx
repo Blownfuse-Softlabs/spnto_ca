@@ -2,7 +2,11 @@ import Image from "next/image";
 import FilterDropdown from "../FilterDropdown/FilterDropdown";
 import ScrollableMenu from "../ScrollableMenu/ScrollableMenu";
 
-const PrimaryNav = ({ brandInfo }) => {
+const PrimaryNav = ({ brandInfo, activeNavCallback }) => {
+  const handleNavChange = (newActiveNav) => {
+    activeNavCallback(newActiveNav);
+  };
+
   return (
     <div className="sticky top-0 flex flex-col justify-center items-center w-full gap-4 px-4 py-4 bg-gradient-to-b from-spoon-grey from-[92%] z-50">
       {/*Brand Section*/}
@@ -39,7 +43,11 @@ const PrimaryNav = ({ brandInfo }) => {
       <section className="flex gap-2 w-full justify-start items-center">
         {/*Scrollable Nav Div*/}
         <div className="w-full">
-          <ScrollableMenu menuItems={brandInfo.courses} id={"course-nav"} />
+          <ScrollableMenu
+            menuItems={brandInfo.courses}
+            id={"course-nav"}
+            activeCourseCallback={handleNavChange}
+          />
         </div>
       </section>
     </div>

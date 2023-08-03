@@ -1,31 +1,20 @@
 "use client"
 
-import "@google/model-viewer";
-
-import NavSWR from "@/components/NavSWR"
-import DishCardSWR from "@/components/DishCardSWR"
-import DishCard from "@/components/DishCard/DishCard";
-
+import { useState } from "react";
 import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
-import Image from "next/image";
-import spoonLogo from "/public/logos/SpoontooLogo_Spoon.svg"
-import { easeIn, motion } from "framer-motion";
-import { letsBakeMuffins } from "./layout";
 import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
 
-//TESTING
-const menuList = [
-  "Soups",
-  "Appetizers",
-  "Main Course",
-  "Desserts",
-  "Aro ache",
-  "Tar poreo ache"  
-] 
+import spoonLogo from "/public/logos/SpoontooLogo_Spoon.svg"
+import { letsBakeMuffins } from "./layout";
 
 export default function Home() {
-  const {restaurant, isLoading, isError} = useRestaurant(1);  
+  const {restaurant, isLoading, isError} = useRestaurant(1);
+  const [activeCourse, setActiveCourse] = useState();
+
+  const handleCourseChange = (newActiveCourse) => {
+    setActiveCourse(newActiveCourse);        
+  }
 
   if (isLoading) {
     return (
@@ -60,39 +49,13 @@ export default function Home() {
           This experience is designed to be viewed in portrait. Please rotate your device to view the menu.
         </p>
       </div>      
-    </main>
-
-    {/*<main className="landscape:hidden">
-      <NavSWR />            
-
-      <div className="flex flex-col p-4 bg-spoon-grey gap-2">        
-        <DishCard />
-        <DishCardSWR dishIndex={0}/>
-        <DishCardSWR dishIndex={1}/>
-        <DishCardSWR dishIndex={2}/>
-        <DishCardSWR dishIndex={3}/>
-        <DishCardSWR dishIndex={4}/>
-        <DishCardSWR dishIndex={5}/>
-        <DishCardSWR dishIndex={5}/>
-        <DishCardSWR dishIndex={5}/>
-        <DishCardSWR dishIndex={5}/>
-        <DishCardSWR dishIndex={5}/>
-        <DishCardSWR dishIndex={5}/>
-        <DishCardSWR dishIndex={5}/>
-        <DishCardSWR dishIndex={5}/>
-      </div>      
-    </main>*/}
+    </main>    
 
     <main className="landscape:hidden flex flex-col items-center bg-spoon-grey w-screen h-screen overflow-scroll">
-           
-         
-           
-      <PrimaryNav brandInfo={restaurant.brand[0]}/>
-      <RestaurantMenu menuItems={restaurant.menu} course={restaurant.brand[0].courses[0]} />
+      <PrimaryNav brandInfo={restaurant.brand[0]} activeNavCallback={handleCourseChange}/>
+      <RestaurantMenu menuItems={restaurant.menu} course={activeCourse? activeCourse : restaurant.brand[0].courses[0]} />      
       <div className="absolute bottom-0 w-full h-10 bg-gradient-to-t from-spoon-grey z-50"/>      
-    </main>
-
-    
+    </main>    
 
     {/*<main className="landscape:hidden flex flex-col items-center px-4 bg-gradient-to-b from-spoon-red from-60% to-spoon-orange w-screen h-screen overflow-clip">
       
