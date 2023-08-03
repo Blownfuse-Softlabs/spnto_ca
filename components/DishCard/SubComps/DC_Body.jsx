@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "@google/model-viewer";
 import ScrollableMenu from "@/components/ScrollableMenu/ScrollableMenu";
 import { AnimatePresence, motion } from "framer-motion";
@@ -11,14 +11,6 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
   const [prevIndex, setPrevIndex] = useState(0);
   const [ref, { height }] = useMeasure();
   const [wRef, { width }] = useMeasure();
-
-  useEffect(() => {
-    if (!isCollapsed) {
-      // when it's not collapsed, i.e., it's expanded
-      //setActiveTab({ tab: "Info", direction: 1 });
-      handleTabChange("Info");
-    }
-  }, [isCollapsed]);
 
   const handleTabChange = (newActiveTab) => {
     const newActiveIndex = dishInfos.indexOf(newActiveTab);
@@ -34,12 +26,12 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
     },
     show: {
       x: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.25 },
     },
 
     exit: (direction) => ({
       x: -width * direction,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.25 },
     }),
   };
 

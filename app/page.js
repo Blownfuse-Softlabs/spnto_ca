@@ -8,6 +8,11 @@ import DishCard from "@/components/DishCard/DishCard";
 
 import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
+import Image from "next/image";
+import spoonLogo from "/public/logos/SpoontooLogo_Spoon.svg"
+import { easeIn, motion } from "framer-motion";
+import { letsBakeMuffins } from "./layout";
+import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
 
 //TESTING
 const menuList = [
@@ -78,10 +83,20 @@ export default function Home() {
       </div>      
     </main>*/}
 
-    <main className="landscape:hidden flex flex-col items-center px-2 bg-spoon-grey w-screen h-screen overflow-scroll">
-      {/*<DishCard dishInfo={restaurant.menu[0]}/>*/}
+    <main className="landscape:hidden flex flex-col items-center px-4 bg-spoon-grey w-screen h-screen overflow-scroll">
+            
+      <NavSWR />
+
+      <PrimaryNav />
       <RestaurantMenu menuItems={restaurant.menu} course={restaurant.brand[0].courses[0]} />
-    </main>    
+    </main>
+
+    {/*<main className="landscape:hidden flex flex-col items-center px-4 bg-gradient-to-b from-spoon-red from-60% to-spoon-orange w-screen h-screen overflow-clip">
+      
+      <motion.div initial={{y: 1000}} animate={{y:160}} transition={{duration: 0.5, type: "spring"}} className="translate-y-40">
+        <Image src={spoonLogo} alt="Spoontoo Logo" className="w-full"/>      
+      </motion.div>
+  </main>  */} 
     </>
   )
 }

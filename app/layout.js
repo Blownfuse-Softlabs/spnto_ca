@@ -1,8 +1,10 @@
 import './globals.css'
 import { Inter, Montserrat } from 'next/font/google'
+import LetsBakeMuffins from 'next/font/local'
 
 const inter = Inter({ subsets: ['latin'] })
 const montserrat = Montserrat({subsets: ['latin']})
+export const letsBakeMuffins = LetsBakeMuffins({src: "../public/fonts/lets-bake-muffins-regular.ttf"})
 
 export const metadata = {
   title: 'Spoontoo',

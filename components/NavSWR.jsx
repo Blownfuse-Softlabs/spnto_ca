@@ -40,9 +40,9 @@ const NavSWR = () => {
   }
 
   return (
-    <div className="flex flex-col bg-spoon-grey px-4 pt-6 pb-2 gap-4">
+    <div className="flex flex-col w-full bg-spoon-grey pt-6 pb-2 gap-4">
       {/*Restaurant Name section*/}
-      <div className="flex flex-col">
+      <div className="flex flex-col px-4">
         <h2 className="text-spoon-blue font-normal text-lg">Welcome to</h2>
         <h1 className="text-spoon-blue font-medium text-xl">
           {restaurant.brand[0].name}
@@ -68,12 +68,6 @@ const NavSWR = () => {
           activeCourseCallback={childToParent}
         />
       </div>
-
-      <ScrollableNav
-        menuItems={["Soup", "Starter", "Main Course", "Dessert", "Beverages"]}
-        id={"course-nav"}
-        activeCourseCallback={childToParent}
-      />
     </div>
   );
 };
