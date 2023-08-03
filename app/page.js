@@ -25,8 +25,8 @@ const menuList = [
 ] 
 
 export default function Home() {
-  const {restaurant, isLoading, isError} = useRestaurant(1);
-  
+  const {restaurant, isLoading, isError} = useRestaurant(1);  
+
   if (isLoading) {
     return (
       <div className="flex bg-spoon-grey p-8 w-screen h-screen justify-center items-center">
@@ -83,13 +83,16 @@ export default function Home() {
       </div>      
     </main>*/}
 
-    <main className="landscape:hidden flex flex-col items-center px-4 bg-spoon-grey w-screen h-screen overflow-scroll">
-            
-      <NavSWR />
-
-      <PrimaryNav />
+    <main className="landscape:hidden flex flex-col items-center bg-spoon-grey w-screen h-screen overflow-scroll">
+           
+         
+           
+      <PrimaryNav brandInfo={restaurant.brand[0]}/>
       <RestaurantMenu menuItems={restaurant.menu} course={restaurant.brand[0].courses[0]} />
+      <div className="absolute bottom-0 w-full h-10 bg-gradient-to-t from-spoon-grey z-50"/>      
     </main>
+
+    
 
     {/*<main className="landscape:hidden flex flex-col items-center px-4 bg-gradient-to-b from-spoon-red from-60% to-spoon-orange w-screen h-screen overflow-clip">
       

@@ -2,7 +2,7 @@ const baseURL = "https://3wknjhpnq4.execute-api.us-east-1.amazonaws.com/spoontoo
 
 const fetcher = async (restaurantID) => {
   const response = await fetch(baseURL + restaurantID)
-  const data = await response.json()
+  const data = await response.json()  
   return data
 }
 
