@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 const montserrat = Montserrat({subsets: ['latin']})
 export const letsBakeMuffins = LetsBakeMuffins({src: "../public/fonts/lets-bake-muffins-regular.ttf"})
 
-export const metadata = {
+const metadata = {
   title: 'Spoontoo',
   description: 'Next gen restaurant menus',
 }

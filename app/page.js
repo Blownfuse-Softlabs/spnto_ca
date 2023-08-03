@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
 import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
@@ -15,6 +15,17 @@ export default function Home() {
   const handleCourseChange = (newActiveCourse) => {
     setActiveCourse(newActiveCourse);        
   }
+
+  useEffect(() => {
+    // This is where we will initialize Model Viewer.
+    // We'll do this asynchronously because it's a heavy operation.
+    import('@google/model-viewer').then(({ ModelViewerElement }) => {
+      // Here, ModelViewerElement is now available and can be used.
+      customElements.define('model-viewer', ModelViewerElement);
+    }).catch((error) => {
+      console.error("Error loading Model Viewer", error);
+    });
+  }, []); // We pass an empty dependency array so this runs once on mount.
 
   if (isLoading) {
     return (
