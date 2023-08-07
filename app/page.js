@@ -5,9 +5,9 @@ import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
 import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
 
-import spoonLogo from "/public/logos/SpoontooLogo_Spoon.svg"
+//import spoonLogo from "/public/logos/SpoontooLogo_Spoon.svg"
 import { letsBakeMuffins } from "./layout";
-import Link from "next/link";
+//import Link from "next/link";
 
 export default function Home() {
   const {restaurant, isLoading, isError} = useRestaurant(1);
