@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "@google/model-viewer";
+//import "@google/model-viewer";
 import ScrollableMenu from "@/components/ScrollableMenu/ScrollableMenu";
 import { AnimatePresence, motion } from "framer-motion";
 import useMeasure from "react-use-measure";
@@ -40,36 +40,41 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
       ref={wRef}
       className={`${
         isCollapsed ? "hidden" : "flex flex-col"
-      } pt-1.5 pb-2 text-sm border-2 border-black`}
+      } pt-1.5 pb-2 text-sm`}
     >
-      <div id="card" className="p-6 border-2 border-blue-500">
-        {
-          <model-viewer
-            src="https://dishmodels.s3.amazonaws.com/dumpukht_peshawar_food.glb"
-            ios-src="https://dishmodels.s3.amazonaws.com/Dumpukht_Peshawar_food.usdz"
-            poster="https://cdn.glitch.com/36cb8393-65c6-408d-a538-055ada20431b%2Fposter-astronaut.png?v=1599079951717"
-            alt="A 3D model of an astronaut"
-            shadow-intensity="1"
-            camera-controls
-            touch-action="pan-y"
-            auto-rotate
-            ar
-            ar-scale="fixed"
-            //ar-modes="webxr scene-viewer quick-look"
-            //ar-modes="webxr"
+      <div
+        id="card"
+        className="flex px-2 pt-2 pb-4 w-full justify-center items-center relative"
+      >
+        <model-viewer
+          src={dishInfo.glb}
+          ios-src={dishInfo.usdz}
+          poster={
+            dishInfo.poster
+              ? dishInfo.poster
+              : "/logos/SpoontooLogo_Square_256.png"
+          }
+          alt="A 3D model of an astronaut"
+          shadow-intensity="1"
+          camera-controls
+          touch-action="pan-y"
+          auto-rotate
+          ar
+          ar-scale="fixed"
+          //ar-modes="webxr scene-viewer quick-look"
+          //ar-modes="webxr"
+        >
+          <button
+            slot="ar-button"
+            id="ar-button"
+            className="bg-spoon-red shadow-2xl p-2 text-spoon-beige text-xs rounded-full w-full bottom-0 absolute"
           >
-            <button
-              slot="ar-button"
-              id="ar-button"
-              className="bg-spoon-blue p-2 text-spoon-beige text-xs"
-            >
-              View in your space Test 3
-            </button>
-          </model-viewer>
-        }
+            View dish on your table
+          </button>
+        </model-viewer>
       </div>
 
-      <div className="bg-gradient-to-r from-white from-40% to-white w-full border-2 border-red-500">
+      <div className="bg-gradient-to-r from-white from-40% to-white w-full">
         <ScrollableMenu
           menuItems={dishInfos}
           id={"dish-info-nav"}
@@ -77,10 +82,7 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
         />
       </div>
 
-      <motion.div
-        animate={{ height: height || "auto" }}
-        className="relative border-2 border-green-500"
-      >
+      <motion.div animate={{ height: height || "auto" }} className="relative">
         <AnimatePresence custom={activeTab.direction} mode="sync">
           <motion.div
             key={activeTab.tab}
@@ -92,14 +94,14 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
           >
             <div ref={ref} className="absolute">
               {activeTab.tab === "Info" && (
-                <motion.div className="flex p-4  border-2 border-black">
+                <motion.div className="flex p-4">
                   <p className="text-spoon-blue text-sm font-light">
                     {dishInfo.description}
                   </p>
                 </motion.div>
               )}
               {activeTab.tab === "Ingredients" && (
-                <motion.div className="flex p-4  border-2 border-black">
+                <motion.div className="flex p-4">
                   <ul className="list-disc list-inside">
                     {dishInfo.ingredients.map((ingredient, index) => (
                       <li
@@ -113,7 +115,7 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
                 </motion.div>
               )}
               {activeTab.tab === "Allergens" && (
-                <motion.div className="flex p-4  border-2 border-black">
+                <motion.div className="flex p-4">
                   <ul className="list-disc list-inside">
                     {dishInfo.allergen.map((allergen, index) => (
                       <li

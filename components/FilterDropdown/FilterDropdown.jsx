@@ -15,7 +15,7 @@ const FilterDropdown = ({ showBorder = true }) => {
   return (
     <MotionConfig transition={{ duration: 0.25 }}>
       <div
-        className={`flex flex-col justify-center items-center w-full shadow-xl rounded-2xl`}
+        className={`flex flex-col justify-center items-center w-full shadow-xl rounded-2xl z-50`}
       >
         <motion.button
           layout
@@ -52,7 +52,7 @@ const FilterDropdown = ({ showBorder = true }) => {
                     ref={ref}
                     className="flex bg-spoon-red rounded-b-2xl w-full absolute"
                   >
-                    <div className="bg-white rounded-b-[0.9rem] w-full m-0.5 p-3">
+                    <div className="bg-white rounded-b-[0.9rem] w-full m-0.5 p-3 z-50">
                       <Accordion
                         title="Diet"
                         content={<DietFilter />}

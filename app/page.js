@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
 import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
 
 import spoonLogo from "/public/logos/SpoontooLogo_Spoon.svg"
 import { letsBakeMuffins } from "./layout";
+import Link from "next/link";
 
 export default function Home() {
   const {restaurant, isLoading, isError} = useRestaurant(1);
@@ -15,6 +16,19 @@ export default function Home() {
   const handleCourseChange = (newActiveCourse) => {
     setActiveCourse(newActiveCourse);        
   }
+
+  useEffect(() => {
+    // This is where we will initialize Model Viewer.
+    // We'll do this asynchronously because it's a heavy operation.
+    import("@google/model-viewer")
+      .then(({ ModelViewerElement }) => {
+        // Here, ModelViewerElement is now available and can be used.
+        customElements.define("model-viewer", ModelViewerElement);
+      })
+      .catch((error) => {
+        console.error("Error loading Model Viewer", error);
+      });
+  }, []); // We pass an empty dependency array so this runs once on mount.
 
   if (isLoading) {
     return (
@@ -53,10 +67,24 @@ export default function Home() {
 
     <main className="landscape:hidden flex flex-col items-center bg-spoon-grey w-screen h-screen overflow-scroll">
       <PrimaryNav brandInfo={restaurant.brand[0]} activeNavCallback={handleCourseChange}/>
-      <RestaurantMenu menuItems={restaurant.menu} course={activeCourse? activeCourse : restaurant.brand[0].courses[0]} />      
-      <div className="absolute bottom-0 w-full h-10 bg-gradient-to-t from-spoon-grey z-50"/>      
+      <RestaurantMenu menuItems={restaurant.menu} course={activeCourse? activeCourse : restaurant.brand[0].courses[0]} />                  
+      <div className="flex flex-col justify-center items-center w-full gap-4 pb-10">
+        <div className="flex gap-2 justify-center items-center">
+          <p className="text-gray-400 text-sm">
+            Love the experience?
+          </p>
+          <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSerGbCAOb5eL0jMxInmxWJluiFnbR_zCzCKUotEiPlro9urDQ/viewform?usp=sf_link"
+            className="py-1 px-2 rounded-lg shadow-md bg-white text-sm text-spoon-red"          
+          >
+            Let us know
+          </a>
+        </div>
+        <p className="text-gray-400 text-xs">Powered by <span  className={`${letsBakeMuffins.className} text-spoon-red text-xl`}>Spoontoo</span></p>
+      </div>
+      <div className="fixed bottom-0 w-full h-10 bg-gradient-to-t from-spoon-grey z-50"/>      
     </main>    
-
+    
     {/*<main className="landscape:hidden flex flex-col items-center px-4 bg-gradient-to-b from-spoon-red from-60% to-spoon-orange w-screen h-screen overflow-clip">
       
       <motion.div initial={{y: 1000}} animate={{y:160}} transition={{duration: 0.5, type: "spring"}} className="translate-y-40">
