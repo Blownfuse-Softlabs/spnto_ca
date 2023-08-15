@@ -8,7 +8,7 @@ const PrimaryNav = ({ brandInfo, activeNavCallback }) => {
   };
 
   return (
-    <div className="sticky top-0 flex flex-col justify-center items-center w-full gap-4 px-4 py-4 bg-gradient-to-b from-spoon-grey from-[92%] z-50">
+    <div className="sticky top-0 flex flex-col justify-center items-center w-full gap-4 px-4 py-4 bg-gradient-to-b from-spoon-grey from-[92%] z-30">
       {/*Brand Section*/}
       <section className="flex gap-2 w-full items-center">
         {/*Logo Div*/}
@@ -34,7 +34,7 @@ const PrimaryNav = ({ brandInfo, activeNavCallback }) => {
       {/*Dropdown Section*/}
       <section className="flex gap-2 w-full justify-center items-center">
         {/*Dropdown Div*/}
-        <div className="w-full z-50">
+        <div className="w-full">
           <FilterDropdown showBorder={false} />
         </div>
       </section>

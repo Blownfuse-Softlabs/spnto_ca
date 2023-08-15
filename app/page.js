@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from 'next/navigation'
 import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
 import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
@@ -10,12 +11,15 @@ import { letsBakeMuffins } from "./layout";
 //import Link from "next/link";
 
 export default function Home() {
-  const {restaurant, isLoading, isError} = useRestaurant(1);
+  const searchParams = useSearchParams()
+  const brandIDQuery = searchParams.get('brandID')
+
+  const {restaurant, isLoading, isError} = useRestaurant(parseInt(brandIDQuery));
   const [activeCourse, setActiveCourse] = useState();
 
   const handleCourseChange = (newActiveCourse) => {
     setActiveCourse(newActiveCourse);        
-  }
+  }    
 
   useEffect(() => {
     // This is where we will initialize Model Viewer.
@@ -28,13 +32,23 @@ export default function Home() {
       .catch((error) => {
         console.error("Error loading Model Viewer", error);
       });
-  }, []); // We pass an empty dependency array so this runs once on mount.
+  }, []); // We pass an empty dependency array so this runs once on mount.  
 
   if (isLoading) {
     return (
       <div className="flex bg-spoon-grey p-8 w-screen h-screen justify-center items-center">
         <h2 className="text-spoon-blue font-normal text-lg">
           Loading Menu Info
+        </h2>
+      </div>
+    );
+  }
+
+  if(restaurant.brand.length == 0) {
+    return (
+      <div className="flex bg-spoon-grey p-8 w-screen h-screen justify-center items-center">
+        <h2 className="text-spoon-blue font-normal text-lg">
+          There was an error
         </h2>
       </div>
     );

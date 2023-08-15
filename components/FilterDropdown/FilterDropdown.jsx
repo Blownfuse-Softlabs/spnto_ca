@@ -15,11 +15,11 @@ const FilterDropdown = ({ showBorder = true }) => {
   return (
     <MotionConfig transition={{ duration: 0.25 }}>
       <div
-        className={`flex flex-col justify-center items-center w-full shadow-xl rounded-2xl z-50`}
+        className={`flex flex-col justify-center items-center w-full shadow-xl rounded-2xl`}
       >
         <motion.button
           layout
-          className={`flex bg-spoon-red text-spoon-beige font-light text-sm w-full px-3 py-2 text-center z-10`}
+          className={`flex bg-spoon-red text-spoon-beige font-light text-sm w-full px-3 py-2 text-center`}
           onClick={() => setIsShown(!isShown)}
           animate={{ borderRadius: isShown ? "1rem 1rem 0 0" : "2rem" }}
         >
@@ -50,7 +50,7 @@ const FilterDropdown = ({ showBorder = true }) => {
                 (showBorder ? (
                   <div
                     ref={ref}
-                    className="flex bg-spoon-red rounded-b-2xl w-full absolute"
+                    className="flex bg-spoon-red rounded-b-2xl w-full absolute z-50"
                   >
                     <div className="bg-white rounded-b-[0.9rem] w-full m-0.5 p-3 z-50">
                       <Accordion
@@ -75,7 +75,7 @@ const FilterDropdown = ({ showBorder = true }) => {
                 ) : (
                   <div
                     ref={ref}
-                    className="bg-white w-full p-3 rounded-b-2xl absolute"
+                    className="bg-white w-full p-3 rounded-b-2xl absolute z-50"
                   >
                     <Accordion
                       title="Diet"

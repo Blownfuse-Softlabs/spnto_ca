@@ -22,7 +22,7 @@ const DietFilter = () => {
     <Select
       options={options}
       menuPortalTarget={document.querySelector("body")}
-      className="z-50"
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
     />
   );
 };

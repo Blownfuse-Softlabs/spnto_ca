@@ -21,6 +21,7 @@ const AllergensFilter = () => {
       isMulti
       options={options}
       menuPortalTarget={document.querySelector("body")}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 9999 }) }}
     />
   );
 };
