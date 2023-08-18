@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import "@google/model-viewer";
 import ScrollableMenu from "@/components/ScrollableMenu/ScrollableMenu";
 import { AnimatePresence, motion } from "framer-motion";
 import useMeasure from "react-use-measure";

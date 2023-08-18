@@ -85,10 +85,12 @@ const FilterDropdown = ({ showBorder = true }) => {
                     <Accordion
                       title="Allergens"
                       content={<AllergensFilter />}
+                      defaultOpen={true}
                     />
                     <Accordion
                       title="Heat Level"
                       content={<HeatLevelFilter />}
+                      defaultOpen={true}
                     />
                     {/*<Accordion
                       title="Price Range"
