@@ -94,7 +94,8 @@ export default function Home() {
             Let us know
           </a>
         </div>
-        <p className="text-gray-400 text-xs">Powered by <span  className={`${letsBakeMuffins.className} text-spoon-red text-xl`}>Spoontoo</span></p>
+        <p className="text-gray-400 text-xs">Powered by <span  className={`${letsBakeMuffins.className} text-spoon-red text-xl`}>spoontoo</span></p>
+        <p className="text-gray-400 text-xs">v0.21</p>
       </div>
       <div className="fixed bottom-0 w-full h-10 bg-gradient-to-t from-spoon-grey z-50"/>      
     </main>    
