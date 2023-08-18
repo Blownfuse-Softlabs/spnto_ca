@@ -14,7 +14,7 @@ export default function Home() {
   const searchParams = useSearchParams()
   const brandIDQuery = searchParams.get('brandID')
 
-  const {restaurant, isLoading, isError} = useRestaurant(parseInt(brandIDQuery));
+  const {restaurant, isLoading, isError} = useRestaurant(brandIDQuery? parseInt(brandIDQuery) : 1);
   const [activeCourse, setActiveCourse] = useState();
 
   const handleCourseChange = (newActiveCourse) => {
