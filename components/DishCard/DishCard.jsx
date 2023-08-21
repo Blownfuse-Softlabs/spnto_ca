@@ -11,9 +11,9 @@ const DishCard = ({ dishInfo }) => {
     setCollapsed(!isCollapsed);
   };
 
-  const [ref, { height }] = useMeasure();
+  const [hRef, { height }] = useMeasure();
 
-  return (
+  /*return (
     <div className="flex flex-col justify-center bg-white p-0 rounded-2xl shadow-xl overflow-clip w-full">
       <motion.div animate={{ height }} transition={{ duration: 0.15 }}>
         <AnimatePresence>
@@ -32,6 +32,29 @@ const DishCard = ({ dishInfo }) => {
           </div>
         </AnimatePresence>
       </motion.div>
+    </div>
+  );*/
+
+  return (
+    <div className="flex flex-col justify-center bg-white p-0 rounded-2xl shadow-xl overflow-clip w-full">
+      <div>
+        <DC_Header
+          isCollapsed={isCollapsed}
+          onCollapse={handleCollapse}
+          dishName={dishInfo.name}
+          dishCurrency={dishInfo.currency}
+          dishPrice={dishInfo.price}
+          dishSpice={dishInfo.spiceMeter}
+          dishClass={dishInfo.dietaryClassification}
+        />
+        <motion.div animate={{ height }} transition={{ duration: 0.15 }}>
+          <AnimatePresence>
+            <div ref={hRef}>
+              <DC_Body isCollapsed={isCollapsed} dishInfo={dishInfo} />
+            </div>
+          </AnimatePresence>
+        </motion.div>
+      </div>
     </div>
   );
 };

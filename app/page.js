@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from 'next/navigation'
 import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
 import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
@@ -10,12 +11,15 @@ import { letsBakeMuffins } from "./layout";
 //import Link from "next/link";
 
 export default function Home() {
-  const {restaurant, isLoading, isError} = useRestaurant(1);
+  const searchParams = useSearchParams()
+  const brandIDQuery = searchParams.get('brandID')
+
+  const {restaurant, isLoading, isError} = useRestaurant(brandIDQuery? parseInt(brandIDQuery) : 1);
   const [activeCourse, setActiveCourse] = useState();
 
   const handleCourseChange = (newActiveCourse) => {
     setActiveCourse(newActiveCourse);        
-  }
+  }    
 
   useEffect(() => {
     // This is where we will initialize Model Viewer.
@@ -28,13 +32,23 @@ export default function Home() {
       .catch((error) => {
         console.error("Error loading Model Viewer", error);
       });
-  }, []); // We pass an empty dependency array so this runs once on mount.
+  }, []); // We pass an empty dependency array so this runs once on mount.  
 
   if (isLoading) {
     return (
       <div className="flex bg-spoon-grey p-8 w-screen h-screen justify-center items-center">
         <h2 className="text-spoon-blue font-normal text-lg">
           Loading Menu Info
+        </h2>
+      </div>
+    );
+  }
+
+  if(restaurant.brand.length == 0) {
+    return (
+      <div className="flex bg-spoon-grey p-8 w-screen h-screen justify-center items-center">
+        <h2 className="text-spoon-blue font-normal text-lg">
+          There was an error
         </h2>
       </div>
     );
@@ -80,7 +94,8 @@ export default function Home() {
             Let us know
           </a>
         </div>
-        <p className="text-gray-400 text-xs">Powered by <span  className={`${letsBakeMuffins.className} text-spoon-red text-xl`}>Spoontoo</span></p>
+        <p className="text-gray-400 text-xs">Powered by <span  className={`${letsBakeMuffins.className} text-spoon-red text-xl`}>spoontoo</span></p>
+        <p className="text-gray-400 text-xs">v0.21</p>
       </div>
       <div className="fixed bottom-0 w-full h-10 bg-gradient-to-t from-spoon-grey z-50"/>      
     </main>    
