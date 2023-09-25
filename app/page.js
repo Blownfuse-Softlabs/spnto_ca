@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
+import ReactGA from "react-ga4";
 import { useSearchParams } from 'next/navigation'
 import useRestaurant from "@/hooks/useRestaurant";
 import RestaurantMenu from "@/components/RestaurantMenu/RestaurantMenu";
@@ -9,6 +10,8 @@ import PrimaryNav from "@/components/PrimaryNav/PrimaryNav";
 //import spoonLogo from "/public/logos/SpoontooLogo_Spoon.svg"
 import { letsBakeMuffins } from "./layout";
 //import Link from "next/link";
+
+ReactGA.initialize("G-KYDL4C972F");
 
 export default function Home() {
   const searchParams = useSearchParams()
@@ -33,6 +36,8 @@ export default function Home() {
         console.error("Error loading Model Viewer", error);
       });
   }, []); // We pass an empty dependency array so this runs once on mount.  
+
+  ReactGA.send({ hitType: "pageview", title: "Menu Page" });
 
   if (isLoading) {
     return (
