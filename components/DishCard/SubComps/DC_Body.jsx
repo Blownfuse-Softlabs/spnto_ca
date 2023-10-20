@@ -4,9 +4,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import useMeasure from "react-use-measure";
 import { getDishCDN_Model, getDishCDN_Poster } from "@/utils/dishInfoUtils";
 
-const dishInfos = ["Info", "Ingredients", "Allergens"];
+var dishInfos = ["Info", "Ingredients", "Allergens"];
 
 const DC_Body = ({ isCollapsed, dishInfo }) => {
+  dishInfos = dishInfo.nutritional
+    ? ["Info", "Ingredients", "Allergens", "Nutrition"]
+    : ["Info", "Ingredients", "Allergens"];
   const [activeTab, setActiveTab] = useState({ tab: "Info", direction: 1 });
   const [prevIndex, setPrevIndex] = useState(0);
   const [ref, { height }] = useMeasure();
@@ -123,6 +126,20 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
                         className="text-spoon-blue text-sm font-light"
                       >
                         {allergen}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+              {activeTab.tab === "Nutrition" && (
+                <motion.div className="flex p-4">
+                  <ul className="list-disc list-inside">
+                    {dishInfo.nutritional.map((nutrition, index) => (
+                      <li
+                        key={index}
+                        className="text-spoon-blue text-sm font-light"
+                      >
+                        {nutrition}
                       </li>
                     ))}
                   </ul>
