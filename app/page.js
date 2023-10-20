@@ -16,10 +16,12 @@ import UserDataHandling from "@/components/UserData/UserDataHandling";
 ReactGA.initialize("G-KYDL4C972F");
 
 export default function Home() {
-  const customerName = window.localStorage.getItem("name");
-  const customerPhone = window.localStorage.getItem("phone");
-  console.log(customerName);
-  console.log(customerPhone);
+  var customerName = null;
+  var customerPhone = null;
+  if (typeof window !== "undefined") {
+    customerName = window.localStorage.getItem("name");
+    customerPhone = window.localStorage.getItem("phone");
+  }
   const searchParams = useSearchParams();
   const brandIDQuery = searchParams.get("brandID");
 
