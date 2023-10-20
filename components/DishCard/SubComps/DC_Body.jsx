@@ -2,6 +2,7 @@ import { useState } from "react";
 import ScrollableMenu from "@/components/ScrollableMenu/ScrollableMenu";
 import { AnimatePresence, motion } from "framer-motion";
 import useMeasure from "react-use-measure";
+import { getDishCDN_Model, getDishCDN_Poster } from "@/utils/dishInfoUtils";
 
 const dishInfos = ["Info", "Ingredients", "Allergens"];
 
@@ -46,11 +47,11 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
         className="flex px-2 pt-2 pb-4 w-full justify-center items-center relative"
       >
         <model-viewer
-          src={dishInfo.glb}
-          ios-src={dishInfo.usdz}
+          src={getDishCDN_Model(dishInfo.glb)}
+          ios-src={getDishCDN_Model(dishInfo.usdz)}
           poster={
             dishInfo.poster
-              ? dishInfo.poster
+              ? getDishCDN_Poster(dishInfo.poster)
               : "/logos/SpoontooLogo_Square_256.png"
           }
           alt="A 3D model of an astronaut"
