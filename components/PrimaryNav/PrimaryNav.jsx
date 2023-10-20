@@ -32,12 +32,12 @@ const PrimaryNav = ({ brandInfo, activeNavCallback }) => {
       </section>
 
       {/*Dropdown Section*/}
-      <section className="flex gap-2 w-full justify-center items-center">
-        {/*Dropdown Div*/}
+      {/*<section className="flex gap-2 w-full justify-center items-center">
+        {Dropdown Div}
         <div className="w-full">
           <FilterDropdown showBorder={false} />
         </div>
-      </section>
+      </section>*/}
 
       {/*Courses Section*/}
       <section className="flex gap-2 w-full justify-start items-center">

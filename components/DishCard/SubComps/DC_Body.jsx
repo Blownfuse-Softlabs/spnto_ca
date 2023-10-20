@@ -47,7 +47,7 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
       >
         <model-viewer
           src={dishInfo.glb}
-          //ios-src={dishInfo.usdz}
+          ios-src={dishInfo.usdz}
           poster={
             dishInfo.poster
               ? dishInfo.poster
