@@ -5,7 +5,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import useMeasure from "react-use-measure";
 
 const DishCard = ({ dishInfo, dishIndex }) => {
-  const [isCollapsed, setCollapsed] = useState(dishIndex == 0 ? false : true);
+  //const [isCollapsed, setCollapsed] = useState(dishIndex == 0 ? false : true);
+  const [isCollapsed, setCollapsed] = useState(true);
 
   const handleCollapse = () => {
     setCollapsed(!isCollapsed);
