@@ -8,7 +8,7 @@ const RestaurantMenu = ({ menuItems, course }) => {
 
   return (
     <div className="flex flex-col items-center w-full px-4 pt-2 pb-10 gap-2">
-      {courseFilteredMenu.map((dish) => (
+      {courseFilteredMenu.map((dish, index) => (
         <motion.div
           className="w-full"
           key={dish.DishID}
@@ -18,7 +18,7 @@ const RestaurantMenu = ({ menuItems, course }) => {
           transition={{ duration: 0.15 }}
         >
           <AnimatePresence>
-            <DishCard key={dish.DishID} dishInfo={dish} />
+            <DishCard key={dish.DishID} dishInfo={dish} dishIndex={index} />
           </AnimatePresence>
         </motion.div>
       ))}

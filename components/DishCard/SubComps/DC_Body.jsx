@@ -7,9 +7,34 @@ import { getDishCDN_Model, getDishCDN_Poster } from "@/utils/dishInfoUtils";
 var dishInfos = ["Info", "Ingredients", "Allergens"];
 
 const DC_Body = ({ isCollapsed, dishInfo }) => {
+  //var modelViewer = document.querySelector("model-viewer");
+  var modelViewers = document.querySelectorAll("model-viewer");
+
+  /*modelViewer?.addEventListener("load", () => {
+    if (!hasCheckedAR) {
+      setIsARAvailable(modelViewer.canActivateAR);
+      setHasCheckedAR(true);
+      console.log("AR Supported: " + isARAvailable);
+    }
+  });*/
+  modelViewers.forEach((modelViewer) => {
+    modelViewer?.addEventListener("ar-status", (event) => {
+      console.log("AR BUTTON CLICKED");
+      console.log(event);
+      if (event.detail.status === "failed" && hasARFailied == false) {
+        setHasARFailed(true);
+        console.log("Failed To View AR");
+      }
+    });
+  });
+
   dishInfos = dishInfo.nutritional
     ? ["Info", "Ingredients", "Allergens", "Nutrition"]
     : ["Info", "Ingredients", "Allergens"];
+
+  //const [hasCheckedAR, setHasCheckedAR] = useState(false);
+  //const [isARAvailable, setIsARAvailable] = useState(false);
+  const [hasARFailied, setHasARFailed] = useState(false);
   const [activeTab, setActiveTab] = useState({ tab: "Info", direction: 1 });
   const [prevIndex, setPrevIndex] = useState(0);
   const [ref, { height }] = useMeasure();
@@ -64,19 +89,28 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
           auto-rotate
           ar
           ar-scale="fixed"
-          //ar-modes="webxr scene-viewer quick-look"
+          ar-modes="webxr scene-viewer quick-look"
           //ar-modes="webxr"
+          //ar-modes="scene-viewer"
         >
           <button
             slot="ar-button"
             id="ar-button"
-            className="bg-spoon-red shadow-2xl p-2 text-spoon-beige text-xs rounded-full w-full bottom-0 absolute"
+            className={`bg-spoon-red shadow-2xl p-2 text-spoon-beige text-xs rounded-full w-full bottom-0 absolute ${
+              hasARFailied ? "hidden" : "block"
+            }`}
           >
             View dish on your table
           </button>
+          {hasARFailied && (
+            <div
+              className={`border-2 border-spoon-red shadow-2xl p-2 text-spoon-blue text-xs text-center rounded-full w-full bottom-0 absolute `}
+            >
+              Sorry, your phone doesn't support AR!
+            </div>
+          )}
         </model-viewer>
       </div>
-
       <div className="bg-gradient-to-r from-white from-40% to-white w-full">
         <ScrollableMenu
           menuItems={dishInfos}
@@ -84,7 +118,6 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
           activeCourseCallback={handleTabChange}
         />
       </div>
-
       <motion.div animate={{ height: height || "auto" }} className="relative">
         <AnimatePresence custom={activeTab.direction} mode="sync">
           <motion.div
