@@ -7,9 +7,23 @@ import { getDishCDN_Model, getDishCDN_Poster } from "@/utils/dishInfoUtils";
 var dishInfos = ["Info", "Ingredients", "Allergens"];
 
 const DC_Body = ({ isCollapsed, dishInfo }) => {
+  var modelViewer = document.querySelector("#model-viewer");
+
+  console.log("Attempting to listen to model-viewer load");
+  modelViewer?.addEventListener("load", () => {
+    if (!hasCheckedAR) {
+      setIsARAvailable(modelViewer.canActivateAR);
+      setHasCheckedAR(true);
+      console.log("AR Supported: " + isARAvailable);
+    }
+  });
+
   dishInfos = dishInfo.nutritional
     ? ["Info", "Ingredients", "Allergens", "Nutrition"]
     : ["Info", "Ingredients", "Allergens"];
+
+  const [hasCheckedAR, setHasCheckedAR] = useState(false);
+  const [isARAvailable, setIsARAvailable] = useState(false);
   const [activeTab, setActiveTab] = useState({ tab: "Info", direction: 1 });
   const [prevIndex, setPrevIndex] = useState(0);
   const [ref, { height }] = useMeasure();
@@ -45,6 +59,7 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
         isCollapsed ? "hidden" : "flex flex-col"
       } pt-1.5 pb-2 text-sm`}
     >
+      {hasCheckedAR && <div>{`AR Supported: ${isARAvailable}`}</div>}
       <div
         id="card"
         className="flex px-2 pt-2 pb-4 w-full justify-center items-center relative"
@@ -65,18 +80,17 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
           ar
           ar-scale="fixed"
           //ar-modes="webxr scene-viewer quick-look"
-          //ar-modes="webxr"
+          ar-modes="webxr"
         >
           <button
             slot="ar-button"
             id="ar-button"
-            className="bg-spoon-red shadow-2xl p-2 text-spoon-beige text-xs rounded-full w-full bottom-0 absolute"
+            className={`bg-spoon-red shadow-2xl p-2 text-spoon-beige text-xs rounded-full w-full bottom-0 absolute `}
           >
             View dish on your table
           </button>
         </model-viewer>
       </div>
-
       <div className="bg-gradient-to-r from-white from-40% to-white w-full">
         <ScrollableMenu
           menuItems={dishInfos}
@@ -84,7 +98,6 @@ const DC_Body = ({ isCollapsed, dishInfo }) => {
           activeCourseCallback={handleTabChange}
         />
       </div>
-
       <motion.div animate={{ height: height || "auto" }} className="relative">
         <AnimatePresence custom={activeTab.direction} mode="sync">
           <motion.div
