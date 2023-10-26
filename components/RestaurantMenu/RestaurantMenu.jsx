@@ -3,6 +3,7 @@ import DishCard from "../DishCard/DishCard";
 import { useState } from "react";
 
 const RestaurantMenu = ({ menuItems, course }) => {
+  const [currentExpandedCard, setCurrentExpandedCard] = useState(-1);
   const fullMenu = menuItems;
   const courseFilteredMenu = fullMenu.filter((dish) => dish.course === course);
 
@@ -18,7 +19,13 @@ const RestaurantMenu = ({ menuItems, course }) => {
           transition={{ duration: 0.15 }}
         >
           <AnimatePresence>
-            <DishCard key={dish.DishID} dishInfo={dish} dishIndex={index} />
+            <DishCard
+              key={dish.DishID}
+              cardIndex={index}
+              expandedCardIndex={currentExpandedCard}
+              dishInfo={dish}
+              onExpansion={setCurrentExpandedCard}
+            />
           </AnimatePresence>
         </motion.div>
       ))}
