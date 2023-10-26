@@ -1,15 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DC_Header from "./SubComps/DC_Header";
 import DC_Body from "./SubComps/DC_Body";
 import { AnimatePresence, motion } from "framer-motion";
 import useMeasure from "react-use-measure";
 
-const DishCard = ({ dishInfo, dishIndex }) => {
+const DishCard = ({ cardIndex, expandedCardIndex, dishInfo, onExpansion }) => {
   //const [isCollapsed, setCollapsed] = useState(dishIndex == 0 ? false : true);
-  const [isCollapsed, setCollapsed] = useState(true);
+  const [isCollapsed, setCollapsed] = useState(
+    cardIndex === expandedCardIndex ? false : true
+  );
+
+  useEffect(() => {
+    setCollapsed(cardIndex === expandedCardIndex ? false : true);
+  }, [expandedCardIndex]);
 
   const handleCollapse = () => {
-    setCollapsed(!isCollapsed);
+    if (isCollapsed === true) {
+      onExpansion(cardIndex);
+      setCollapsed(false);
+    } else {
+      setCollapsed(true);
+    }
   };
 
   const [hRef, { height }] = useMeasure();
